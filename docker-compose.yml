@@ -1,0 +1,18 @@
+# Full local stack: MongoDB + HomeIntel (single origin) on http://localhost:5000
+# Requires a .env with JWT_ACCESS_SECRET and MFA_ENCRYPTION_KEY (see .env.example).
+services:
+  mongo:
+    image: mongo:7
+    volumes: ["mongo-data:/data/db"]
+  app:
+    build: .
+    env_file: .env
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/homeintel
+      CLIENT_ORIGINS: http://localhost:5000
+      PUBLIC_APP_URL: http://localhost:5000
+      COOKIE_SAMESITE: lax
+    ports: ["5000:5000"]
+    depends_on: [mongo]
+volumes:
+  mongo-data:

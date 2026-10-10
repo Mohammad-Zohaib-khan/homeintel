@@ -1,0 +1,21 @@
+import { Router } from 'express';
+import { validate } from '../middleware/validate.js';
+import { requireAuth, optionalAuth } from '../middleware/auth.js';
+import { searchLimiter, authLimiter } from '../middleware/rateLimit.js';
+import * as v from '../validators/neighborhood.js';
+import * as c from '../controllers/neighborhoodController.js';
+
+const r = Router();
+r.get('/search', searchLimiter, optionalAuth, validate({ query: v.searchQuery }), c.search);
+r.get('/facets', c.facets);
+r.get('/lookup', searchLimiter, requireAuth, validate({ query: v.lookupQuery }), c.lookup);
+r.post('/', authLimiter, requireAuth, validate({ body: v.createBody }), c.create);
+r.post('/compare', searchLimiter, optionalAuth, validate({ body: v.compareBody }), c.compare);
+r.get('/:id', optionalAuth, validate({ params: v.idParam, query: v.weightsQuery }), c.profile);
+r.get('/:id/metrics', validate({ params: v.idParam }), c.metrics);
+r.get('/:id/sources', validate({ params: v.idParam }), c.sources);
+r.get('/:id/history', validate({ params: v.idParam, query: v.historyQuery }), c.history);
+r.get('/:id/pois', validate({ params: v.idParam, query: v.poiQuery }), c.pois);
+r.get('/:id/quality', validate({ params: v.idParam }), c.quality);
+r.post('/:id/refresh', authLimiter, requireAuth, validate({ params: v.idParam }), c.refresh);
+export default r;

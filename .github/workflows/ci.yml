@@ -1,0 +1,27 @@
+name: CI
+on:
+  push: { branches: [main] }
+  pull_request:
+  workflow_call:   # reused by azure-deploy.yml so a deploy only happens after tests, build and audit pass
+permissions: { contents: read }
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      mongo:
+        image: mongo:7
+        ports: ["27017:27017"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - name: Tests (server + client)
+        run: npm test
+        env: { REQUIRE_DB: "1" }
+      - name: Production build
+        run: npm run build
+      - name: No source maps shipped
+        run: test -z "$(find client/dist -name '*.map')"
+      - name: Dependency audit
+        run: npm audit --audit-level=high

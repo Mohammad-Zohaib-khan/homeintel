@@ -1,0 +1,30 @@
+{
+  "name": "@homeintel/server",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "test": "node --test \"tests/**/*.test.js\"",
+    "lint": "node --check src/server.js"
+  },
+  "dependencies": {
+    "@homeintel/shared": "*",
+    "@node-rs/argon2": "^2.2.2",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "express-rate-limit": "^7.4.1",
+    "helmet": "^8.0.0",
+    "hpp": "^0.2.3",
+    "jose": "^6.2.12",
+    "mongoose": "^8.8.0",
+    "multer": "^2.4.0",
+    "otpauth": "^9.5.2",
+    "pino": "^9.5.0",
+    "qrcode": "^1.5.4",
+    "zod": "^3.23.8"
+  }
+}
