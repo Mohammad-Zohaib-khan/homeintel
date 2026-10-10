@@ -18,7 +18,7 @@
     "@react-three/fiber": "^8.18.0",
     "axios": "^1.7.7",
     "leaflet": "^1.9.4",
-    "lucide-react": "^0.454.0",
+    "lucide-react": "^1.52.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router": "7.18.4",
