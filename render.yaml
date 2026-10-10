@@ -1,0 +1,28 @@
+# Render Blueprint for the HomeIntel API (pair with the Vercel frontend), or set SERVE_CLIENT=1 to serve both from one service.
+services:
+  - type: web
+    name: homeintel-api
+    runtime: node
+    plan: starter
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - { key: NODE_ENV, value: production }
+      - { key: NODE_VERSION, value: "22" }
+      - { key: TRUST_PROXY, value: "1" }
+      - { key: SERVE_CLIENT, value: "0" }            # "1" = also serve client/dist from this service (single origin)
+      - { key: CLIENT_ORIGINS, sync: false }          # e.g. https://homeintel.vercel.app
+      - { key: PUBLIC_APP_URL, sync: false }          # same as the public frontend URL
+      - { key: MONGODB_URI, sync: false }             # MongoDB Atlas SRV string for a least-privilege readWrite user
+      - { key: JWT_ACCESS_SECRET, generateValue: true }
+      - { key: MFA_ENCRYPTION_KEY, sync: false }      # 64 hex chars: openssl rand -hex 32
+      - { key: WEBHOOK_SIGNING_SECRET, generateValue: true }
+      - { key: COOKIE_SAMESITE, value: lax }
+      - { key: OPENAQ_API_KEY, sync: false }
+      - { key: DATA_GOV_IN_API_KEY, sync: false }
+      - { key: CONTACT_EMAIL, sync: false }
+      - { key: AI_PROVIDER, value: none }
+      - { key: ANTHROPIC_API_KEY, sync: false }
+      - { key: OPENAI_API_KEY, sync: false }
+      - { key: GEMINI_API_KEY, sync: false }

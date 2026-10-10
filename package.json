@@ -1,0 +1,36 @@
+{
+  "name": "homeintel",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "client",
+    "server",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "concurrently -n server,client -c gray,blue \"npm run dev -w server\" \"npm run dev -w client\"",
+    "build": "npm run build -w client",
+    "start": "npm run start -w server",
+    "test": "npm run test -w server && npm run test -w client",
+    "lint": "npm run lint -w server && npm run lint -w client",
+    "audit:deps": "npm audit --audit-level=high",
+    "seed:localities": "node scripts/seed.js localities",
+    "seed:demo": "node scripts/seed.js demo",
+    "seed:osm": "node scripts/seed.js osm",
+    "seed:air-quality": "node scripts/seed.js air-quality",
+    "seed:crime": "node scripts/seed.js crime",
+    "seed:all": "node scripts/seed.js all",
+    "inspect:ogd": "node scripts/inspect-ogd.js",
+    "webhook:refresh": "node scripts/sign-webhook.js",
+    "test:e2e": "node tests/e2e/smoke.e2e.mjs",
+    "admin": "node scripts/admin.js"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1",
+    "puppeteer-core": "^25.13.0"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "type": "module"
+}

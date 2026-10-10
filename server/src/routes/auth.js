@@ -1,0 +1,24 @@
+import { Router } from 'express';
+import { validate } from '../middleware/validate.js';
+import { requireAuth } from '../middleware/auth.js';
+import { authLimiter } from '../middleware/rateLimit.js';
+import { issueCsrf } from '../middleware/csrf.js';
+import * as v from '../validators/auth.js';
+import * as c from '../controllers/authController.js';
+
+const r = Router();
+r.get('/csrf', issueCsrf);
+r.post('/register', authLimiter, validate({ body: v.registerBody }), c.register);
+r.post('/login', authLimiter, validate({ body: v.loginBody }), c.login);
+r.post('/mfa/login', authLimiter, validate({ body: v.mfaLoginBody }), c.mfaLogin);
+r.post('/refresh', authLimiter, c.refresh);
+r.post('/logout', c.logout);
+r.get('/me', requireAuth, c.me);
+r.post('/logout-all', requireAuth, c.logoutAll);
+r.post('/change-password', authLimiter, requireAuth, validate({ body: v.changePasswordBody }), c.changePassword);
+r.get('/mfa/status', requireAuth, c.mfaStatus);
+r.post('/mfa/setup', authLimiter, requireAuth, c.mfaSetup);
+r.post('/mfa/enable', authLimiter, requireAuth, validate({ body: v.mfaCodeBody }), c.mfaEnable);
+r.post('/mfa/disable', authLimiter, requireAuth, validate({ body: v.mfaDisableBody }), c.mfaDisable);
+r.post('/delete-account', authLimiter, requireAuth, validate({ body: v.deleteAccountBody }), c.deleteAccount);
+export default r;

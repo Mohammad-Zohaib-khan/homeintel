@@ -1,0 +1,21 @@
+{
+  "_readme": "Locality identities used to bootstrap the database. Coordinates are approximate area centres (refined by Nominatim when `seed:localities -- --geocode` runs with network access). Contains NO metric values.",
+  "localities": [
+    { "name": "Bandra West", "city": "Mumbai", "district": "Mumbai Suburban", "state": "Maharashtra", "lat": 19.0596, "lng": 72.8295 },
+    { "name": "Powai", "city": "Mumbai", "district": "Mumbai Suburban", "state": "Maharashtra", "lat": 19.1176, "lng": 72.9060 },
+    { "name": "Andheri West", "city": "Mumbai", "district": "Mumbai Suburban", "state": "Maharashtra", "lat": 19.1364, "lng": 72.8296 },
+    { "name": "Indiranagar", "city": "Bengaluru", "district": "Bengaluru Urban", "state": "Karnataka", "lat": 12.9719, "lng": 77.6412 },
+    { "name": "Koramangala", "city": "Bengaluru", "district": "Bengaluru Urban", "state": "Karnataka", "lat": 12.9352, "lng": 77.6245 },
+    { "name": "Whitefield", "city": "Bengaluru", "district": "Bengaluru Urban", "state": "Karnataka", "lat": 12.9698, "lng": 77.7500 },
+    { "name": "HSR Layout", "city": "Bengaluru", "district": "Bengaluru Urban", "state": "Karnataka", "lat": 12.9116, "lng": 77.6474 },
+    { "name": "Hauz Khas", "city": "New Delhi", "district": "South Delhi", "state": "Delhi", "lat": 28.5494, "lng": 77.2001 },
+    { "name": "Dwarka", "city": "New Delhi", "district": "South West Delhi", "state": "Delhi", "lat": 28.5921, "lng": 77.0460 },
+    { "name": "Kothrud", "city": "Pune", "district": "Pune", "state": "Maharashtra", "lat": 18.5074, "lng": 73.8077 },
+    { "name": "Hinjewadi", "city": "Pune", "district": "Pune", "state": "Maharashtra", "lat": 18.5913, "lng": 73.7389 },
+    { "name": "Gachibowli", "city": "Hyderabad", "district": "Rangareddy", "state": "Telangana", "lat": 17.4401, "lng": 78.3489 },
+    { "name": "Banjara Hills", "city": "Hyderabad", "district": "Hyderabad", "state": "Telangana", "lat": 17.4126, "lng": 78.4482 },
+    { "name": "Adyar", "city": "Chennai", "district": "Chennai", "state": "Tamil Nadu", "lat": 13.0012, "lng": 80.2565 },
+    { "name": "Salt Lake", "city": "Kolkata", "district": "North 24 Parganas", "state": "West Bengal", "lat": 22.5800, "lng": 88.4170 },
+    { "name": "Vastrapur", "city": "Ahmedabad", "district": "Ahmedabad", "state": "Gujarat", "lat": 23.0395, "lng": 72.5290 }
+  ]
+}

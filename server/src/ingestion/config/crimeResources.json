@@ -1,0 +1,4 @@
+{
+  "_readme": "Mappings for NCRB/OGD crime resources. Each entry MUST be written after inspecting the live schema with `npm run inspect:ogd -- <resourceId>`. The importer verifies every mapped field exists in the live resource and refuses to import otherwise. Leave empty until verified — no field names are assumed.",
+  "resources": []
+}
