@@ -47,7 +47,8 @@ if (-not (AzTry acr show -n $AcrName -o none)) { Az acr create -g $ResourceGroup
 $server = "$AcrName.azurecr.io"
 
 $tag = Get-Date -Format 'yyyyMMdd-HHmmss'
-if ($SkipBuild) { $tag = (Az acr repository show-tags -n $AcrName --repository homeintel --orderby time_desc --top 1 -o tsv) }
+# Newest build by its yyyyMMdd-HHmmss tag (the registry's time ordering proved unreliable and redeployed an old image).
+if ($SkipBuild) { $tag = @(Az acr repository show-tags -n $AcrName --repository homeintel -o tsv) | Where-Object { $_ -match '^\d{8}-\d{6}$' } | Sort-Object | Select-Object -Last 1 }
 $image = "${server}/homeintel:$tag"
 if (-not $SkipBuild) {
   # Prefer a local Docker build + push: "Azure for Students" subscriptions reject ACR Tasks (TasksOperationsNotAllowed).

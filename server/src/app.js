@@ -23,7 +23,7 @@ export const SPA_CSP = {
   defaultSrc: ["'self'"],
   scriptSrc: ["'self'"],
   styleSrc: ["'self'", "'unsafe-inline'"],            // inline style attributes from React/Leaflet/Recharts; no inline <script>
-  imgSrc: ["'self'", 'data:', 'blob:', 'https://tile.openstreetmap.org'],
+  imgSrc: ["'self'", 'data:', 'blob:', 'https://server.arcgisonline.com'],
   fontSrc: ["'self'"],
   connectSrc: ["'self'"],
   frameAncestors: ["'none'"], baseUri: ["'none'"], formAction: ["'self'"], objectSrc: ["'none'"],

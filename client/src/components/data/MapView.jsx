@@ -3,8 +3,10 @@ import L from 'leaflet';
 import { groupOf, POI_TYPE_LABEL } from '../../lib/poiTypes.js';
 import { fmtDistance } from '../../lib/format.js';
 
-const TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
-const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+// Esri Light Gray Canvas (keyless). tile.openstreetmap.org blocks production sites under its usage policy and
+// CARTO now requires an API key. Native tiles stop at zoom 16; Leaflet upscales beyond that.
+const TILE_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors Tiles &copy; <a href="https://www.esri.com">Esri</a>, HERE, Garmin';
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 /**
@@ -21,7 +23,7 @@ export default function MapView({ pins = [], pois = [], area, activeId, onPinCli
   useEffect(() => {
     if (!el.current || map.current) return undefined;
     const m = L.map(el.current, { zoomControl: true, attributionControl: true, scrollWheelZoom: false, keyboard: true });
-    L.tileLayer(TILE_URL, { maxZoom: 19, attribution: ATTRIBUTION, crossOrigin: true }).addTo(m);
+    L.tileLayer(TILE_URL, { maxZoom: 19, maxNativeZoom: 16, attribution: ATTRIBUTION, crossOrigin: true }).addTo(m);
     m.setView([20.6, 78.9], 5);
     m.on('focus', () => m.scrollWheelZoom.enable()); m.on('blur', () => m.scrollWheelZoom.disable());
     layers.current = { pins: L.layerGroup().addTo(m), pois: L.layerGroup().addTo(m), area: L.layerGroup().addTo(m) };

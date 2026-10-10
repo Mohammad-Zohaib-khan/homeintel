@@ -14,8 +14,10 @@ import { POI_GROUPS, POI_TYPE_LABEL, groupOf } from '../lib/poiTypes.js';
  * the locality's score card floating on top, and a switcher that flies between localities. A slow tour runs until
  * the visitor interacts; it is off under reduced motion. Everything on the map is also available as buttons/text.
  */
-const TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
-const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+// Esri Light Gray Canvas (keyless). tile.openstreetmap.org blocks production sites under its usage policy and
+// CARTO now requires an API key. Native tiles stop at zoom 16; Leaflet upscales beyond that.
+const TILE_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors Tiles &copy; <a href="https://www.esri.com">Esri</a>, HERE, Garmin';
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const reducedMotion = () => typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 const TOUR_MS = 9000;
@@ -39,7 +41,7 @@ export default function HeroMap({ children }) {
     if (!el.current || map.current) return undefined;
     const fine = window.matchMedia?.('(pointer: fine)').matches;
     const m = L.map(el.current, { zoomControl: false, attributionControl: true, scrollWheelZoom: false, dragging: !!fine, tap: false, keyboard: true, zoomSnap: 0.25 });
-    L.tileLayer(TILE_URL, { maxZoom: 19, attribution: ATTRIBUTION, crossOrigin: true }).addTo(m);
+    L.tileLayer(TILE_URL, { maxZoom: 19, maxNativeZoom: 16, attribution: ATTRIBUTION, crossOrigin: true }).addTo(m);
     L.control.zoom({ position: 'bottomleft' }).addTo(m);
     m.setView([20.6, 78.9], 5);
     layer.current = L.layerGroup().addTo(m);
