@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "concurrently": "^9.0.1",
-    "puppeteer-core": "^25.13.0"
+    "puppeteer-core": "^25.15.0"
   },
   "engines": {
     "node": ">=20"
